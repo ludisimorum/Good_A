@@ -35,14 +35,14 @@ function initGame() {
     // Create audio context first
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
     
-    // Load audio files first
-    loadAudios();
-    
     // Create game elements
     createTimer();
     createCar();
     setupInitialWords();
     setupControls();
+    
+    // Setup mobile layout if needed
+    setupMobileLayout();
     
     // Start the timer
     startTime = Date.now();
@@ -50,19 +50,23 @@ function initGame() {
 
     // Start game loop
     startGameLoop();
+    
+    // Load audio files
+    loadAudios();
 
-    // Ensure first word plays
-    setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * activeWords.length);
-        currentTargetWord = activeWords[randomIndex].word;
-        const audio = wordAudios[currentTargetWord];
-        if (audio) {
-            audio.load(); // Make sure audio is loaded
-            audioContext.resume().then(() => {
-                audio.play();
-            });
-        }
-    }, 500);
+    // Force play first word immediately
+    audioContext.resume().then(() => {
+        setTimeout(() => {
+            if (activeWords.length > 0) {
+                const randomIndex = Math.floor(Math.random() * activeWords.length);
+                currentTargetWord = activeWords[randomIndex].word;
+                const audio = wordAudios[currentTargetWord];
+                if (audio) {
+                    audio.play().catch(err => console.log('Audio play error:', err));
+                }
+            }
+        }, 100);
+    });
 
     // Start monster spawning after 30 seconds
     setTimeout(() => {
@@ -904,6 +908,22 @@ function explodeMonster(monster, index) {
     setTimeout(() => {
         monster.remove();
     }, 500);
+}
+
+// Add this function to create mobile layout
+function setupMobileLayout() {
+    if (/Mobile|Android|iPhone/i.test(navigator.userAgent)) {
+        // Create controls area
+        const controlsArea = document.createElement('div');
+        controlsArea.className = 'controls-area';
+        document.body.appendChild(controlsArea);
+        
+        // Move timer and controls into controls area
+        const timer = document.querySelector('.timer-card');
+        const controls = document.getElementById('mobile-controls');
+        if (timer) controlsArea.appendChild(timer);
+        if (controls) controlsArea.appendChild(controls);
+    }
 }
 
 // Update DOMContentLoaded handler
