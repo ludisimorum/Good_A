@@ -65,6 +65,9 @@ let remainingWords = [
 let startTime = null;
 let timerInterval = null;
 
+// Add this at the top with other variables
+const originalWords = [...remainingWords]; // Store original word list
+
 // Load audio files with better error handling
 remainingWords.forEach(word => {
     let audioName = word
@@ -201,6 +204,25 @@ function playNextWord() {
         // Add completion message
         const finalTime = formatTime(Date.now() - startTime);
         timerCard.innerHTML = `<div>Well Done!<br>You finished in ${finalTime}</div>`;
+        
+        // Show try again button
+        const tryAgainButton = document.createElement('button');
+        tryAgainButton.className = 'try-again-button';
+        tryAgainButton.textContent = 'Try again?';
+        tryAgainButton.style.display = 'flex';
+        document.body.appendChild(tryAgainButton);
+        
+        // Add click handler for try again
+        tryAgainButton.addEventListener('click', () => {
+            // Reset words with new random order
+            remainingWords = [...originalWords].sort(() => Math.random() - 0.5);
+            // Remove try again button
+            tryAgainButton.remove();
+            // Reset and recreate flashcards
+            startTime = null;
+            currentWord = null;
+            createFlashcards();
+        });
         
         // Create fireworks
         for (let i = 0; i < 10; i++) {
