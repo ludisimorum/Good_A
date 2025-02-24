@@ -24,14 +24,16 @@
     background-color: white;
     border: 2px solid #ddd;
     border-radius: 8px;
-    padding: 8px;
+    padding: 6px;
     text-align: center;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 1.2;
 }
 
 .start-button, .audio-button {
