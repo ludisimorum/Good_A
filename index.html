@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ESL Audio Flashcards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>
+        // Device detection
+        if (/Mobile|Android|iPhone/i.test(navigator.userAgent)) {
+            document.write('<link rel="stylesheet" href="styles-mobile.css">');
+        } else {
+            document.write('<link rel="stylesheet" href="styles-pc.css">');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="flashcards-container">
+            <button class="start-button">Let's start!</button>
+            <button class="audio-button" style="display: none;">
+                <i class="fas fa-volume-up"></i>
+                <span>Listen again?</span>
+            </button>
+            <!-- Flashcards will be generated here by JavaScript -->
+            <div class="timer-card" style="display: none;">
+                <span class="time">00:00</span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

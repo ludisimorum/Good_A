@@ -1,0 +1,101 @@
+/* Mobile Version */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+.flashcards-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.flashcard {
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.start-button, .audio-button {
+    height: 60px;
+    padding: 8px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    grid-column: span 2;
+}
+
+.timer-card {
+    height: 60px;
+    font-size: 1.5em;
+    background-color: #f8f9fa;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    grid-column: span 2;
+}
+
+/* Keep existing styles */
+.start-button { background-color: #007bff; }
+.audio-button { background-color: #28a745; }
+
+/* Animations */
+.timer-card.completed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    width: 90%;
+    z-index: 1000;
+    transition: all 0.5s ease;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.2em;
+    padding: 15px;
+}
+
+/* Fireworks animation */
+@keyframes firework {
+    0% { transform: translate(var(--x), var(--initialY)); width: 0.5vmin; opacity: 1; }
+    50% { width: 0.5vmin; opacity: 1; }
+    100% { width: 0.5vmin; opacity: 0; transform: translate(var(--x), var(--finalY)) }
+}
+
+.firework {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0.5vmin;
+    aspect-ratio: 1;
+    background: linear-gradient(orange, yellow);
+    transform: translate(var(--x), var(--initialY));
+    animation: firework 2s infinite;
+    pointer-events: none;
+} 
