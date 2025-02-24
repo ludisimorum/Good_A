@@ -1,33 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ESL Audio Flashcards</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script>
-        // Device detection
-        if (/Mobile|Android|iPhone/i.test(navigator.userAgent)) {
-            document.write('<link rel="stylesheet" href="styles-mobile.css">');
-        } else {
-            document.write('<link rel="stylesheet" href="styles-pc.css">');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good A</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    </script>
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            gap: 40px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #333;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .choice-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #17a2b8;
+            transition: background-color 0.3s ease;
+        }
+
+        .choice-button:hover {
+            background-color: #138496;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            .choice-button {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="flashcards-container">
-            <button class="start-button">Let's start!</button>
-            <button class="audio-button" style="display: none;">
-                <i class="fas fa-volume-up"></i>
-                <span>Listen again?</span>
-            </button>
-            <!-- Flashcards will be generated here by JavaScript -->
-            <div class="timer-card" style="display: none;">
-                <span class="time">00:00</span>
-            </div>
-        </div>
+    <h1>Good A</h1>
+    <div class="button-container">
+        <button class="choice-button" onclick="window.location.href='practice.html'">Practice?</button>
+        <button class="choice-button" onclick="window.location.href='game.html'">Play a game?</button>
     </div>
-    <script src="script.js"></script>
 </body>
 </html> 

@@ -1,0 +1,427 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+}
+
+#game-area {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.word-card {
+    position: absolute;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 100px;
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.car {
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    background-color: #0056b3;  /* Darker blue */
+    border-radius: 10px;
+}
+
+/* Driver's head */
+.car::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: #ffb6c1;  /* Light pink for face */
+    border-radius: 50%;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Add face features */
+    box-shadow: 
+        /* Eyes */
+        -5px -2px 0 2px #333,
+        5px -2px 0 2px #333,
+        /* Smile - curved line */
+        -6px 3px 0 2px #333,  /* Left edge */
+        -3px 5px 0 2px #333,  /* Left curve */
+        0 6px 0 2px #333,     /* Bottom */
+        3px 5px 0 2px #333,   /* Right curve */
+        6px 3px 0 2px #333;   /* Right edge */
+}
+
+/* Wheels */
+.car::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    border-radius: 50%;
+    bottom: -6px;
+    box-shadow: 
+        40px 0 0 0 #333,  /* Right wheel */
+        0 0 0 2px #666,   /* Left wheel rim */
+        40px 0 0 2px #666; /* Right wheel rim */
+    left: 4px;
+}
+
+/* Mobile Controls */
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+    #game-container {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .word-card {
+        min-width: 80px;
+        padding: 8px;
+        font-size: 0.9em;
+        word-break: break-word;
+        max-width: 120px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .car {
+        width: 40px;
+        height: 30px;
+    }
+
+    /* Adjust driver's head for landscape */
+    .car::before {
+        width: 16px;
+        height: 16px;
+        top: -10px;
+        /* Adjust face features */
+        box-shadow: 
+            /* Eyes */
+            -3px -1px 0 1.5px #333,
+            3px -1px 0 1.5px #333,
+            /* Smile */
+            0 3px 0 1.5px #333;
+    }
+
+    /* Adjust wheels for landscape */
+    .car::after {
+        width: 8px;
+        height: 8px;
+        bottom: -4px;
+        left: 3px;
+        box-shadow: 
+            25px 0 0 0 #333,  /* Right wheel */
+            0 0 0 1.5px #666,   /* Left wheel rim */
+            25px 0 0 1.5px #666; /* Right wheel rim */
+    }
+
+    .timer-card {
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        font-size: 1.2em;
+    }
+
+    .monster {
+        width: 35px;
+        height: 35px;
+    }
+
+    .monster-eye {
+        width: 8px;
+        height: 8px;
+    }
+
+    .monster-eye::after {
+        width: 4px;
+        height: 4px;
+        top: 2px;
+        left: 2px;
+    }
+
+    #mobile-controls {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        z-index: 1000;
+    }
+
+    #mobile-controls button {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        opacity: 0.7;
+    }
+
+    .completion-buttons {
+        top: 75%;
+    }
+
+    .play-again-button, .practice-again-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+/* Mobile styles for portrait mode */
+@media (max-width: 768px) and (orientation: portrait) {
+    .car {
+        width: 30px;
+        height: 20px;
+    }
+
+    /* Adjust driver's head for mobile */
+    .car::before {
+        width: 12px;
+        height: 12px;
+        top: -8px;
+        box-shadow: 
+            /* Eyes */
+            -2.5px -1px 0 1px #333,
+            2.5px -1px 0 1px #333,
+            /* Smile - curved line */
+            -3px 1.5px 0 1px #333,
+            -1.5px 2.5px 0 1px #333,
+            0 3px 0 1px #333,
+            1.5px 2.5px 0 1px #333,
+            3px 1.5px 0 1px #333;
+    }
+
+    /* Adjust wheels for mobile */
+    .car::after {
+        width: 6px;
+        height: 6px;
+        bottom: -3px;
+        left: 2px;
+        box-shadow: 
+            20px 0 0 0 #333,  /* Right wheel */
+            0 0 0 1px #666,   /* Left wheel rim */
+            20px 0 0 1px #666; /* Right wheel rim */
+    }
+
+    .timer-card {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        top: auto;  /* Override default top position */
+        font-size: 1.2em;
+        padding: 8px 15px;
+        background-color: rgba(248, 249, 250, 0.9);
+    }
+
+    #mobile-controls {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 150px;
+        height: 150px;
+        background: rgba(0, 123, 255, 0.1);
+        border-radius: 50%;  /* Make it circular */
+        display: grid;
+        grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+        gap: 2px;
+        padding: 10px;
+    }
+
+    #mobile-controls button {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: rgba(0, 123, 255, 0.7);
+        color: white;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.8;
+    }
+
+    #mobile-controls button:active {
+        background: rgba(0, 123, 255, 1);
+        opacity: 1;
+    }
+
+    /* Position buttons in circle */
+    #up-btn { grid-area: 1/2/2/3; border-radius: 5px 5px 0 0; }
+    #left-btn { grid-area: 2/1/3/2; border-radius: 5px 0 0 5px; }
+    #center-btn { grid-area: 2/2/3/3; border-radius: 50%; }  /* Center audio button */
+    #right-btn { grid-area: 2/3/3/4; border-radius: 0 5px 5px 0; }
+    #down-btn { grid-area: 3/2/4/3; border-radius: 0 0 5px 5px; }
+
+    .word-card {
+        min-width: 70px;
+        padding: 6px;
+        font-size: 0.8em;
+    }
+
+    .monster {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* Explosion Animation */
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.exploding {
+    animation: explode 0.5s ease-out forwards;
+}
+
+.timer-card {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #f8f9fa;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    font-family: monospace;
+    z-index: 1000;
+}
+
+.timer-card.completed {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.completion-buttons {
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.play-again-button, .practice-again-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #17a2b8;
+    transition: background-color 0.3s ease;
+}
+
+.play-again-button:hover, .practice-again-button:hover {
+    background-color: #138496;
+}
+
+@keyframes spinAround {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.car.spinning {
+    animation: spinAround 0.5s linear infinite;
+}
+
+.monster {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #ff4444;
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.monster-eyes {
+    position: absolute;
+    width: 100%;
+    top: 25%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.monster-eye {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+}
+
+.monster-eye::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: black;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+}
+
+.monster-mouth {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    bottom: 0;
+    left: 20%;
+    overflow: hidden;
+    animation: chomp 1s infinite;
+}
+
+.monster-mouth::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+    border-radius: 50% 50% 0 0;
+    bottom: -50%;
+}
+
+@keyframes chomp {
+    0%, 100% { height: 30%; }
+    50% { height: 60%; }
+}
+
+@keyframes monsterExplode {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; background-color: #ff8888; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.monster.exploding {
+    animation: monsterExplode 0.5s ease-out forwards;
+} 

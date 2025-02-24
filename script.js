@@ -205,14 +205,26 @@ function playNextWord() {
         const finalTime = formatTime(Date.now() - startTime);
         timerCard.innerHTML = `<div>Well Done!<br>You finished in ${finalTime}</div>`;
         
-        // Show try again button
+        // Add both buttons in a container
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'completion-buttons';
+        document.body.appendChild(buttonContainer);
+        
+        // Try again button
         const tryAgainButton = document.createElement('button');
         tryAgainButton.className = 'try-again-button';
         tryAgainButton.textContent = 'Try again?';
         tryAgainButton.style.display = 'flex';
-        document.body.appendChild(tryAgainButton);
+        buttonContainer.appendChild(tryAgainButton);
         
-        // Add click handler for try again
+        // Play game button
+        const playGameButton = document.createElement('button');
+        playGameButton.className = 'play-game-button';
+        playGameButton.textContent = 'Play a game?';
+        playGameButton.style.display = 'flex';
+        buttonContainer.appendChild(playGameButton);
+        
+        // Add click handlers
         tryAgainButton.addEventListener('click', () => {
             // Reset words with new random order
             remainingWords = [...originalWords].sort(() => Math.random() - 0.5);
@@ -222,6 +234,10 @@ function playNextWord() {
             startTime = null;
             currentWord = null;
             createFlashcards();
+        });
+        
+        playGameButton.addEventListener('click', () => {
+            window.location.href = 'game.html';
         });
         
         // Create fireworks
