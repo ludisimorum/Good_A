@@ -35,8 +35,12 @@
     position: absolute;
     width: 60px;
     height: 40px;
-    background-color: #0056b3;  /* Darker blue */
+    background-color: #dc3545 !important;  /* Red car with !important to ensure it applies */
     border-radius: 10px;
+}
+
+#game-area .car {
+    background-color: #dc3545 !important;  /* Red car with higher specificity */
 }
 
 /* Driver's head */
@@ -291,6 +295,31 @@
     }
 }
 
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    #timer {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    
+    /* Remove controls styling as we're using tap-to-move */
+    #mobile-controls {
+        display: none;
+    }
+    
+    /* Remove controls area */
+    .controls-area {
+        display: none;
+    }
+}
+
 /* Explosion Animation */
 @keyframes explode {
     0% { transform: scale(1); opacity: 1; }
@@ -431,4 +460,16 @@
 
 .monster.exploding {
     animation: monsterExplode 0.5s ease-out forwards;
+}
+
+#timer {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    z-index: 100;
 } 
